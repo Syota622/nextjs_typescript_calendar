@@ -1,1 +1,2 @@
-# nextjs_typescript_calendar
+# 起動
+npm run dev
