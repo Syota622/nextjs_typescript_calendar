@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, addMonths, isToday, startOfWeek, endOfWeek, addWeeks } from 'date-fns';
+import { startOfMonth, endOfMonth, eachDayOfInterval, addMonths, isToday, startOfWeek, endOfWeek, addWeeks } from 'date-fns';
 import styles from '../styles/Calendar.module.css';
 import EventModal from './EventModal';
+import { format, toDate } from 'date-fns-tz';
 
 interface Event {
     title: string;
@@ -19,14 +20,19 @@ const Calendar: React.FC = () => {
   const endDate = viewMode === 'month' ? endOfMonth(currentMonth) : endOfWeek(currentMonth);
   const days = eachDayOfInterval({ start: startDate, end: endDate });
 
-  const handleDayClick = (date: Date) => {
-    
-    setSelectedDate(date);
+  // Calendar.tsx 内の handleDayClick 関数を修正
+  const handleDayClick = (day: Date) => {
+    const timeZone = 'Asia/Tokyo';
+    const localDate = toDate(day, { timeZone });
+    setSelectedDate(localDate);
     setModalVisible(true);
   };
 
+  // date-fns-tz の format 関数を使用して日付を文字列に変換
   const saveEvent = (title: string, date: Date) => {
-    setEvents(prevEvents => [...prevEvents, { title, date: date.toISOString().slice(0, 10) }]);
+    const timeZone = 'Asia/Tokyo';
+    const localDateString = format(date, 'yyyy-MM-dd', { timeZone });
+    setEvents(prevEvents => [...prevEvents, { title, date: localDateString }]);
   };
 
   return (
