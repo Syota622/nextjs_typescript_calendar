@@ -1,0 +1,17 @@
+.calendarContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.day {
+  padding: 10px;
+  border: 1px solid #ccc;
+  min-width: 50px;
+  text-align: center;
+}
+
+.today {
+  color: red;
+  font-weight: bold;
+}

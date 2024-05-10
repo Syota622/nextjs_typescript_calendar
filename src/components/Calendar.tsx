@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, addMonths } from 'date-fns';
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, addMonths, isToday } from 'date-fns'; // isTodayを追加
+import styles from '../styles/Calendar.module.css';
 
 const Calendar: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -21,12 +22,13 @@ const Calendar: React.FC = () => {
 
   return (
     <div>
+      {/* 現在の月を表示 */}
       <h1>{format(currentMonth, 'MMMM yyyy')}</h1>
       <button onClick={handlePrevMonth}>前月</button>
       <button onClick={handleNextMonth}>翌月</button>
-      <div>
+      <div className={styles.calendarContainer}>
         {days.map(day => (
-          <div key={format(day, 'yyyy-MM-dd')}>
+          <div key={format(day, 'yyyy-MM-dd')} className={`${styles.day} ${isToday(day) ? styles.today : ''}`}>
             {format(day, 'EEE, dd')}
           </div>
         ))}
