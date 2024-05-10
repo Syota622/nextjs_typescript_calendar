@@ -1,17 +1,25 @@
 .calendarContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7列 */
+  gap: 4px;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: #f0f0f0;
+  text-align: center;
+  padding: 8px 0;
 }
 
 .day {
   padding: 10px;
   border: 1px solid #ccc;
-  min-width: 50px;
   text-align: center;
+  min-height: 50px; /* セルの高さを確保 */
 }
 
 .today {
-  color: red;
+  background-color: #ffe0e0; /* 今日の日付の背景色 */
   font-weight: bold;
 }
